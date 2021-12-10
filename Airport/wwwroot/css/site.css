@@ -1,0 +1,185 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.navbar .brand {
+    font-family: 'Merienda', cursive;
+    font-size: 28px;
+    color: #3896de;
+}
+
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+
+html {
+    font-size: 14px;
+}
+
+    html * {
+        font-family: 'Fjalla One', sans-serif;
+    }
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    min-height: 75rem;
+    padding-top: 5.5rem;
+}
+
+nav {
+    display: table;
+    margin: 0 auto;
+}
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+.topmenu:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.topmenu > li {
+    width: 25%;
+    float: left;
+    position: relative;
+}
+
+    .topmenu > li > a {
+        width: max-content;
+        font-size: 18px;
+        color: #3896de;
+        padding: 15px 60px;
+    }
+
+.topmenu li a:hover {
+    color: #0060a7;
+}
+
+.submenu-link:after {
+    color: inherit;
+    margin-left: 10px;
+}
+
+.submenu {
+    background: #3896de;
+    position: absolute;
+    left: 45px;
+    top: 100%;
+    z-index: 7;
+    width: 220px;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: 0 0;
+    transition: .5s ease-in-out;
+    border-radius: 5px;
+}
+
+    .submenu a {
+        color: white;
+        text-align: left;
+        padding: 12px 15px;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .submenu li:last-child a {
+        border-bottom: none;
+    }
+
+    .submenu li a:hover {
+        color: darkblue;
+    }
+
+.topmenu > li:hover .submenu {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.center {
+    width: 200px; /* Ширина элемента в пикселах */
+    padding: 10px; /* Поля вокруг текста */
+    margin: auto; /* Выравниваем по центру */
+}
+
+
+#heading {
+    text-align: center;
+    padding: 50px 0;
+}
+
+
+#about div.row {
+    padding: 50px 0;
+}
+
+#screenshots h1 {
+    padding-bottom: 30px;
+}
+
+.divider {
+    background-image: url(../img/divider-pattern.png);
+    background-repeat: repeat-x;
+    height: 40px;
+    width: 100%;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color: black;
+}
+
+.main {
+    color: #3896de;
+    border-color: #3896de;
+}
+
+.img-polaroid {
+    width: 400px;
+    height: 250px;
+    border-radius: 5px;
+}
+
+.img-history {
+    width: 300px;
+    height: 200px;
+    border-radius: 3px;
+}

@@ -1,0 +1,129 @@
+﻿@using System.Globalization
+@model Selection
+@{
+    ViewData["Title"] = "Day";
+    IEnumerable<Directions> direction = ViewBag.Directions;
+    DateTime dateStart = Model.DateStart;
+    int count = 0;
+    List<string> company;
+    bool flag;
+    string namePicture = Model.City + 1 + ".jpg";
+}
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img style="height:500px" class="d-block w-100" src="/img/City/@namePicture" alt="@Model.City">
+            <div class="carousel-caption d-none d-md-block main text-white">
+                <h3 class="display-3">@Model.City</h3>
+                <h1>Осталось выбрать подходящую дату</h1>
+            </div>
+        </div>
+        @for (int i = 2; i <= 3; i++)
+        {
+            namePicture = Model.City + i + ".jpg";
+
+            <div class="carousel-item">
+                <img style="height:500px" class="d-block w-100" src="/img/City/@namePicture" alt="@Model.City">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-3">@Model.City</h3>
+                    <h1>Осталось выбрать подходящую дату</h1>
+                </div>
+            </div>
+        }
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<br />
+<div class="container">
+    <form asp-controller="Ticket" asp-action="DayChange" method="post" class="form-inline justify-content-center">
+        <div class="form-group row mx-sm-3 mb-2">
+            <label class="col col-form-label">Город</label>
+            <select asp-for="City" asp-items="@ViewBag.SelectItems" class="form-control"></select>
+        </div>
+        <div class="form-group row mx-sm-3 mb-2">
+            <label class="col col-form-label">С</label>
+            @*<input asp-for="DateStart" type="date" class="form-control" placeholder="Дата начала" value="@ViewBag.DateStart.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")">*@
+            <input asp-for="DateStart" type="date" class="form-control" placeholder="Дата начала" value="@Model.DateStart.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+        </div>
+        <div class="form-group row mx-sm-3 mb-2">
+            <label class="col col-form-label">По</label>
+            @*<input asp-for="DateExpiration" type="date" class="form-control" placeholder="Дата окончания" value="@ViewBag.DateExpiration.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="2022-12-31">*@
+            <input asp-for="DateExpiration" type="date" class="form-control" placeholder="Дата окончания" value="@Model.DateExpiration.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="2022-12-31">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Изменить</button>
+    </form>
+</div>
+<br />
+<div class="container">
+    <table class="table table-sm">
+        <tbody>
+
+            @while (dateStart <= Model.DateExpiration)
+            {
+                <tr>
+                    @while (dateStart <= Model.DateExpiration)
+                    {
+                        flag = false;
+                        <td style="width: 150px; height: 140px">
+
+                            @foreach (var item in direction.GroupBy(p => p.Day).OrderBy(d => d.Key))
+                            {
+                                if (dateStart == item.Key)
+                                {
+                                    flag = true;
+                                    company = new List<string>();
+                                    <a style="width: 150px; height: 140px" asp-action="Ticket" asp-route-City="@item.FirstOrDefault().City" asp-route-DateStart="@dateStart" class="page-link">
+                                        <p>@DBReader.GetDayOfWeek(dateStart.DayOfWeek) <span>@dateStart.ToString("d", new CultureInfo("ru-RU"))</span></p>
+
+                                        <p class="lead">от: @direction.Where(d => d.Day == dateStart).Min(p => p.Price) р.</p>
+                                        <p>
+                                            @foreach (var comp in item)
+                                            {
+                                                if (company.Contains(comp.AirName))
+                                                {
+                                                    continue;
+                                                }
+                                                company.Add(@comp.AirName);
+                                                <span>@comp.AirName<br /></span>
+                                            }
+                                        </p>
+                                    </a>
+                                    break;
+                                }
+                            }
+                            @if (!flag)
+                            {
+                                <a style="width: 150px; height: 140px" href="#" class="page-link">
+                                    <p>@DBReader.GetDayOfWeek(dateStart.DayOfWeek) <span>@dateStart.ToString("d", new CultureInfo("ru-RU"))</span></p>
+                                </a>
+                            }
+                        </td>
+                        dateStart = dateStart.AddDays(1);
+                        count++;
+                        if (count == 7)
+                        {
+                            count = 0;
+                            break;
+                        }
+                    }
+                </tr>
+            }                      
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="container divider">
+
+</div>

@@ -1,0 +1,10 @@
+﻿@model Airport.Models.Sub
+
+@{
+    ViewData["Title"] = "Subscription";
+}
+<div class="container">
+    <h1>E-mail @Model.Email подписался на новости!</h1>
+    <a asp-controller="home" asp-action="index" >На главную</a>
+</div>
+
